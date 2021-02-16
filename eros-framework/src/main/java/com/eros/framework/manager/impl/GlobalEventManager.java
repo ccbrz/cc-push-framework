@@ -14,6 +14,7 @@ public class GlobalEventManager extends Manager {
     public static final String TYPE_OPEN = "open";
     public static final String TYPE_BACK = "back";
     public static final String TYPE_REFRESH = "refresh";
+    public static String sPendingMsg = null;
 
     public static void onViewWillAppear(WXSDKInstance instance, String type) {
         Map<String, Object> map = new HashMap<>();
@@ -75,5 +76,14 @@ public class GlobalEventManager extends Manager {
         }
     }
 
-
+    public static void pushMessageIfNeed(WXSDKInstance instance) {
+        if (instance != null) {
+            if (sPendingMsg != null) {
+                Map<String, Object> params = new HashMap<>();
+                params.put("param", sPendingMsg);
+                instance.fireGlobalEventCallback("OnReceivePush", params);
+                sPendingMsg = null;
+            }
+        }
+    }
 }
