@@ -609,6 +609,7 @@ public class AbstractWeexActivity extends AppCompatActivity implements IWXRender
         if (mWxAnalyzerDelegate != null) {
             mWxAnalyzerDelegate.onWeexRenderSuccess(instance);
         }
+        GlobalEventManager.pushMessageIfNeed(mWXInstance);
     }
 
     @Override
